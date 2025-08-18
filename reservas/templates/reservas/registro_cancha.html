@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
+{% block title %}Registrar Nueva Cancha{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
-    <h2>Registrar Nueva Cancha</h2>
+    <h2 class="mb-4">Registrar Nueva Cancha</h2>
+
+   
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -15,6 +20,7 @@
             {{ form.nombre.label_tag }}
             {{ form.nombre }}
         </div>
+
         <div class="mb-3">
             {{ form.descripcion.label_tag }}
             {{ form.descripcion }}
@@ -29,16 +35,8 @@
             {{ form.disponible }}
             {{ form.disponible.label_tag }}
         </div>
-       
-        <a
-        name=""
-        id=""
-        class="btn btn-success"
-        href="{% url 'lista_cancha' %}"
-        role="button"
-        >Guardar</a>
-        
 
+        <button type="submit" class="btn btn-success">Guardar Cancha</button>
         <a href="{% url 'lista_cancha' %}" class="btn btn-secondary">Volver</a>
     </form>
 </div>

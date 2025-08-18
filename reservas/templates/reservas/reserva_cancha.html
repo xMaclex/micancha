@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservar {{ cancha.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Reservar Cancha: {{ cancha.nombre }}</h1>
+
+    {% if cancha.imagen %}
+        <img src="{{ cancha.imagen.url }}" class="img-fluid mb-3" alt="{{ cancha.nombre }}">
+    {% endif %}
+
+    <p>{{ cancha.descripcion }}</p>
+    <p><strong>Precio:</strong> ${{ cancha.precio }}</p>
+    <p><strong>Estado:</strong> 
+        {% if cancha.disponible %}
+            <span class="badge bg-success">Disponible</span>
+        {% else %}
+            <span class="badge bg-danger">No disponible</span>
+        {% endif %}
+    </p>
+
+    {% if cancha.disponible %}
+    <form method="POST" action="{% url 'reserva_cancha' cancha.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
+    </form>
+    {% else %}
+        <a href="{% url 'lista_cancha' %}" class="btn btn-secondary">Volver a la lista</a>
+    {% endif %}
+</div>
+{% endblock %}
