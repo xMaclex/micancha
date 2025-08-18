@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import ActualizacionForm  
 
+
+# Asegúrate de tener este formulario definido
 def registro_usuario(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -46,4 +50,17 @@ def login_usuarios(request):
 def logout_usuarios(request):
     auth_logout(request)  # <- usamos logout de Django renombrado
     messages.success(request, 'Has cerrado sesión exitosamente.')
-    return redirect('login_usuarios')
+    return redirect('login')
+
+
+@login_required
+def editar_perfil(request):
+    if request.method == "POST":
+        form = ActualizacionForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_cancha')  # o donde quieras redirigir
+    else:
+        form = ActualizacionForm(instance=request.user)
+
+    return render(request, 'usuarios/editar_perfil.html', {'form': form})

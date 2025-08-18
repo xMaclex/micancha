@@ -22,10 +22,12 @@
                 <h5 class="card-title">{{ cancha.nombre }}</h5>
                 <p class="card-text">{{ cancha.descripcion|truncatewords:20 }}</p>
                 <p class="card-text"><strong>Precio:</strong> ${{ cancha.precio }}</p>
+                <p class="card-text"><strong>Fecha de Registro:</strong> {{ cancha.fecha_registro|date:"d M Y" }}</p>
                 {% if cancha.disponible %}
                     <span class="badge bg-success">Disponible</span>
                 {% else %}
                     <span class="badge bg-danger">No disponible</span>
+            
                 {% endif %}
             </div>
             <div class="card-footer text-center">
@@ -35,6 +37,15 @@
     </div>
     {% empty %}
     <p>No hay canchas disponibles.</p>
+    <a
+        name=""
+        id=""
+        class="btn btn-primary"
+        href="{% url 'registro_cancha' %}"
+        role="button"
+        >Crear reserva</a
+    >
+    
     {% endfor %}
 </div>
 {% endblock %}

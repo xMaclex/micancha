@@ -27,7 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import os
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Application definition
 
@@ -55,9 +58,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'micancha.urls'
 
-LOGIN_URL = 'usuarios/login'
-LOGIN_REDIRECT_URL = ''
-LOGOUT_REDIRECT_URL = 'usuarios/login'
+LOGIN_URL = '/usuarios/login'
+LOGIN_REDIRECT_URL = 'lista_cancha'  # Asegúrate de que esta vista exista
+LOGOUT_REDIRECT_URL = '/usuarios/login'
 
 TEMPLATES = [
     {
